@@ -4,7 +4,7 @@ from blog import views
 
 urlpatterns = [
     # Home page set to all published blog posts.
-    url('r^$', views.PostListView.as_view(), name='post_list'),
+    url(r'^$', views.PostListView.as_view(), name='post_list'),
     url(r'^about/$', views.AboutView.as_view(), name='about'),
     url(r'^post/(?P<pk>\d+)$', views.PostDetailView.as_view(), name='post_detail'),
     url(r'^post/create/$', views.CreatePostView.as_view(), name='create'),

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/blog.css %'%}">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Anton|Kosugi" rel="stylesheet">
@@ -24,17 +24,30 @@
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-default techfont custom-navbar">
-        <div class="container">
-            <ul>
-                <li><a class="navbar-brand bigbrand" href="{% url 'post_list' %}">Home</a></li>
-                <li><a href="{%  url 'about' %}">About</a></li>
-                <li><a href="www.google.com">Google</a></li>
-                <li><a href="www.reddit.com">Reddit</a></li>
-            </ul>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
 
-            <ul class="nav navbar-nav navbar-right">
+    <div class="container">
+        <div class="navbar-collapse collapse w-50">
+            <ul class="navbar-nav w-50">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%  url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="www.google.com" class="nav-link">Google</a>
+                </li>
+                <li class="nav-item">
+                    <a href="www.reddit.com" class="nav-link">Reddit</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <a class="navbar-brand text-center w-25" href="{% url 'post_list' %}">Home</a>
+
+        <div class="navbar-collapse dual-nav w-50 order-2">
+
+            <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li>
                         <a href="{% url 'post_new' %}">New Post</a>
@@ -49,29 +62,27 @@
                         <a>Welcome: {{ user.username }}</a>
                     </li>
                 {% else %}
-
-                    <!-- glyphicon supplied by bootstrap -->
-                    <li><a class="nav navbar-right" href="{% url 'login' %}"><span class="'glyphicon glyphicon-user"></span>Login</a></li>
+                    <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
                 {% endif %}
             </ul>
-
         </div>
 
-    </nav>
+    </div>
+</nav>
 
 
-    <!-- Content Block -->
-    <div class="content container">
-        <!-- Add things for mobile users, rows, col-md-8, etc. -->
-        <div class="row">
-            <div class="col-md-8">
-                <div class="blog_posts">
-                    {% block content %}
-                    {%  endblock %}
-                </div>
+<!-- Content Block -->
+<div class="content container">
+    <!-- Add things for mobile users, rows, col-md-8, etc. -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="blog_posts">
+                {% block content %}
+                {%  endblock %}
             </div>
         </div>
     </div>
+</div>
 
 </body>
 </html>
