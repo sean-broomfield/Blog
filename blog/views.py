@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 # Below statement is akin to the login_required decorator.
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+
 from blog.models import Post, Comment
 from blog.forms import PostForm, CommentForm
 from django.views.generic import (TemplateView, ListView,
@@ -62,3 +64,52 @@ class DraftListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         # __isnull means that there is no value for the published date.
         return Post.objects.filter(published_date__isnull=True).order_by('create_date')
+
+
+############################
+
+@login_required
+def post_publish(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.publish()
+    return redirect('post_detail', pk=pk)
+
+
+# Primary Key needed to link the Comment to Post
+@login_required
+def add_comment_to_post(request, pk):
+
+    # Get "post" or a 404 page.
+    post = get_object_or_404(Post, pk=pk)
+
+    # If the form has been filled out and hit submit.
+    if request.method == 'POST':
+
+        # Above request is passed in here.
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    # 1st form in the context dictionary refers to the name that will be called in the html
+    # 2nd form is the form that was initialized above.
+    return render(request, 'blog/comment_form.html', {'form':form})
+
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.approve()
+
+    # Redirects to a post detail page of the of the original blog pose.
+    return redirect('post_detail', pk=comment.post.pk)
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post_pk = comment.post.pk
+    comment.delete()
+    return redirect('post_detail,', pk=post_pk)
