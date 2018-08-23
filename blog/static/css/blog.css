@@ -8,6 +8,11 @@
     font-size: 1.5em;
 }
 
+.centerstage{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 h1{
   font-family: Oak,sans-serif;
   color: rgba(0,0,0,0.7);
@@ -19,12 +24,8 @@ h1{
 
 .loader {
   position:fixed;
-  left:0;
-  right:0;
-  top:0;
-  bottom:0;
   filter:hue-rotate(0deg);
-  background:linear-gradient(45deg,#0f8,#08f);
+  solid-color:linear-gradient(rgb(0, 255, 136), rgb(0, 136, 255));
   animation:hue 10000ms infinite linear;
 }
 
