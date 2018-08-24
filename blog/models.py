@@ -24,7 +24,7 @@ class Post(models.Model):
 
     def approve_comments(self):
         # Grab the comments and filter the approved comments to display on the site.
-        return self.comments.filter(approved_comments=True)
+        return self.comments.filter(approved_comment=True)
 
     def get_absolute_url(self):
          # After post is created, return to the post_detail page that matches this PrimaryKey.

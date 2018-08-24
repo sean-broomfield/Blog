@@ -50,13 +50,13 @@
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'post_new' %}">New Post</a>
+                        <a class="nav-link" href="{% url 'create' %}">New Post</a>
                     </li>
                     <li>
-                        <a href="{% url 'post_drafts_list' %}">Drafts</a>
+                        <a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a>
                     </li>
                     <li>
-                        <a href="{% url 'logout' %}>">Log Out</a>
+                        <a class="nav-link" href="{% url 'logout' %}>">Log Out</a>
                     </li>
                     <li>
                         <a>Welcome: {{ user.username }}</a>

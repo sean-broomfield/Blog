@@ -14,7 +14,7 @@ from django.views.generic import (TemplateView, ListView,
 
 
 class AboutView(TemplateView):
-    template_name = 'about.html'
+    template_name = 'blog/about.html'
 
 
 class PostListView(ListView):

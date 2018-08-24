@@ -5,10 +5,10 @@
     <form class="post-form" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default" name="button">Save</button>
+        <button type="submit" class="btn btn-primary" name="button">Save</button>
     </form>
 
     <!-- Widget -->
-    <script>var editor = new MediumeEditor('.editable);</script>
+    <script>var editor = new MediumeEditor('.editable');</script>
 
 {% endblock %}
